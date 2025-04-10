@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +24,7 @@ import com.example.retoc.retociva.model.MarcaBus;
 import com.example.retoc.retociva.repository.BusRepository;
 import com.example.retoc.retociva.repository.MarcaBusRepository;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/bus")
 public class BusesController {
@@ -48,7 +50,7 @@ public class BusesController {
     @GetMapping
     public Page<BusDTO> getBusesPaginados(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
+            @RequestParam(defaultValue = "20") int size) {
 
         Pageable pageable = PageRequest.of(page, size);
         return busRepository.findAll(pageable).map(BusDTO::new);
